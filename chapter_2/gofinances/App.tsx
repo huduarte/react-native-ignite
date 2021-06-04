@@ -5,7 +5,7 @@ import 'intl/locale-data/jsonp/pt-BR';
 import {StatusBar} from 'react-native';
 import { ThemeProvider } from 'styled-components';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { Routes } from './src/routes/';
 
 
 import AppLoading from 'expo-app-loading';
@@ -17,24 +17,28 @@ import {
 } from '@expo-google-fonts/poppins';
 
 import theme from './src/global/styles/theme';
-import { AppRoutes } from './src/routes/app.routes';
+
+import { AuthProvider, useAuth } from './src/hooks/auth';
 
 
 export default function App() {
+  const { userStoragedLoading } = useAuth()
+
+
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_700Bold,
   });
-  if (!fontsLoaded) {
+  if (!fontsLoaded || userStoragedLoading) {
     return <AppLoading />;
   }
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
         <StatusBar barStyle="light-content" />
-        <AppRoutes />
-      </NavigationContainer>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
     </ThemeProvider>
   );
 }
