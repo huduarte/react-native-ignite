@@ -1,15 +1,8 @@
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
-import { Acessory } from '../../components/Acessory/Index';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import { Accessory } from '../../components/Accessory/Index';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
-
-import SpeedSvg from '../../assets/speed.svg';
-import AccelerationSvg from '../../assets/acceleration.svg';
-import ForceSvg from '../../assets/force.svg';
-import GasolineSvg from '../../assets/gasoline.svg';
-import ExchangeSvg from '../../assets/exchange.svg';
-import PeopleSvg from '../../assets/people.svg';
 
 import {
   Container,
@@ -17,7 +10,7 @@ import {
   CarImages,
   Content,
   Details,
-  Acessories,
+  Accessories,
   Description,
   Brand,
   Name,
@@ -29,12 +22,24 @@ import {
 } from './styles';
 import { Button } from '../../components/Button';
 import { StatusBar } from 'react-native';
+import { CarDTO } from '../../dtos/carDTO';
+import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
+
+interface Params {
+  car: CarDTO
+}
 
 export function CarDetails(){
+  const route = useRoute();
+  const { car } = route.params as Params;
   const navigation = useNavigation();
   
   function handleConfirmRental(){
-    navigation.navigate('Scheduling')
+    navigation.navigate('Scheduling', { car })
+  }
+
+  function handleBack(){
+    navigation.goBack();
   }
  return (
    <Container>
@@ -44,41 +49,35 @@ export function CarDetails(){
       backgroundColor="transparent"
      />
     <Header>
-      <BackButton onPress={() => {}} />
+      <BackButton onPress={handleBack} />
     </Header>
 
     <CarImages>
       <ImageSlider 
-        imagesUrl={['https://www.motortrend.com/uploads/sites/10/2018/05/2018-audi-rs5-4wd-coupe-angular-front.png']}
+        imagesUrl={car.photos}
       />
     </CarImages>
 
     <Content>
       <Details>
         <Description>
-          <Brand>Lamborghini</Brand>
-          <Name>Huracan</Name>
+          <Brand>{car.brand}</Brand>
+          <Name>{car.name}</Name>
         </Description>
 
           <Rent>
-            <Period>Ao dia</Period>
-            <Price>R$ 580</Price>
+            <Period>{car.rent.period}</Period>
+            <Price>R$ {car.rent.price}</Price>
           </Rent>
       </Details>
 
-      <Acessories>
+      <Accessories>
+        {car.accessories.map(accessory => (
+          <Accessory key={accessory.type} name={accessory.name} icon={getAccessoryIcon(accessory.type)}  />
+        ))}
+      </Accessories>
 
-        <Acessory name="380 Km/h" icon={SpeedSvg}  />
-        <Acessory name="3.2s" icon={AccelerationSvg}/>
-        <Acessory name="800 HP" icon={ForceSvg} />
-        <Acessory name="Gasolina"icon={GasolineSvg}/>
-        <Acessory name="Auto" icon={ExchangeSvg}/>
-        <Acessory name="2 Pessoas" icon={PeopleSvg}/>
-      </Acessories>
-
-      <About>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate rem temporibus autem minus blanditiis amet non. Amet nihil suscipit possimus! Qui inventore explicabo dolores sapiente accusantium libero dolore maxime placeat.
-      </About>
+      <About>{car.about}</About>
     </Content>
 
     <Footer>
