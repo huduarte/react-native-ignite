@@ -8,7 +8,7 @@ Bem vindo ao meu repositório do curso! Aqui estão todos os códigos que desenv
 
 ## Organização
 
-Os diretórios estão sendo separados por cada módulo e aplicaçao constrúida
+Os diretórios estão sendo separados por cada módulo e aplicaçao constrúida, a partir do chapter_2, você encontrara dentro da pasta da aplicação, uma breve descrição sobre o projeto desenvolvido.
 
 ## Contato
 
