@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
-import { Accessory } from '../../components/Accessory/Index';
+import { Accessory } from '../../components/Accessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
 import {format} from 'date-fns';

@@ -14,7 +14,7 @@ import Animated, {
 import { CarDTO } from '../../dtos/carDTO';
 import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
 
-import { Accessory } from '../../components/Accessory/Index';
+import { Accessory } from '../../components/Accessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
 import { Button } from '../../components/Button';
