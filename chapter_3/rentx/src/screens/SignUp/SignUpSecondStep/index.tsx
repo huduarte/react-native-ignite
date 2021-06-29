@@ -25,6 +25,7 @@ interface Params {
 
 import { Alert, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import { useTheme } from 'styled-components';
+import api from '../../../services/api';
 
 export function SignUpSecondStep(){
   const [password, setPassword] = useState('');
@@ -39,7 +40,7 @@ export function SignUpSecondStep(){
     navigation.goBack();
   }
 
-  function handleRegister(){
+  async function handleRegister(){
     if(!password || !passwordConfirm){
       return Alert.alert("Informa a senha e a confirmação.")
     }
@@ -48,13 +49,22 @@ export function SignUpSecondStep(){
       return Alert.alert("As senhas não são iguais")
     }
 
-    //Enviar para API
-
-    navigation.navigate('Confirmation', {
-      nextScreenRoute: 'SignIn',
-      title: 'Contra criada!',
-      message: `Agora é só fazer login\ne aproveitar.`
+    await api.post('/users', {
+      name: user.name,
+      email: user.email,
+      driver_license: user.driveLicense,
+      password
+    }).then(() => {
+      navigation.navigate('Confirmation', {
+        nextScreenRoute: 'SignIn',
+        title: 'Contra criada!',
+        message: `Agora é só fazer login\ne aproveitar.`
+      })
+    }).catch(error => {
+      console.log(error)
+      Alert.alert('Opa', 'Não foi possível cadastrar');
     })
+
   }
 
   return (
@@ -64,8 +74,8 @@ export function SignUpSecondStep(){
           <Header>
             <BackButton onPress={handleBack}/>
             <Steps>
-              <Bullet active/>
               <Bullet/>
+              <Bullet active/>
             </Steps>
           </Header>
 
