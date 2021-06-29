@@ -26,8 +26,8 @@ import {
 } from './styles';
 
 interface CarProps {
-  user_id: string;
-  id: string;
+  user_id: SVGAnimatedNumberList;
+  id: SVGAnimatedNumberList;
   car: CarDTO;
   startDate: string;
   endDate: string;
@@ -44,7 +44,6 @@ export function MyCars(){
     async function fetchCars(){
       try {
         const response = await api.get('/schedules_byuser/?user_id=1');
-        console.log(response.data);
         setCars(response.data);
       } catch (error) {
         console.log(error)
@@ -87,7 +86,7 @@ export function MyCars(){
 
           <FlatList 
             data={cars}
-            keyExtractor={item => item.id}
+            keyExtractor={item => String(item.id)}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => (
               <CarWrapper>
