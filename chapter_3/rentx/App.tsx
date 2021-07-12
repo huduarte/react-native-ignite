@@ -1,7 +1,6 @@
 import React from 'react';
-
 import AppLoading from 'expo-app-loading';
-
+import { AppProvider } from './src/hooks';
 import { 
   useFonts,
   Inter_400Regular,
@@ -33,7 +32,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Routes />
+      <AppProvider>
+        <Routes />
+      </AppProvider>
     </ThemeProvider>
   );
 }
