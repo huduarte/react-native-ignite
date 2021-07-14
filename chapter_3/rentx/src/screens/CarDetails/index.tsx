@@ -11,7 +11,7 @@ import Animated, {
   Extrapolate
 } from 'react-native-reanimated';
 
-import { CarDTO } from '../../dtos/carDTO';
+import { Car as ModelCar } from '../../databases/models/Car';
 import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
 
 import { Accessory } from '../../components/Accessory';
@@ -37,7 +37,7 @@ import {
 import { useTheme } from 'styled-components';
 
 interface Params {
-  car: CarDTO
+  car: CarDTO;
 }
 
 export function CarDetails(){
