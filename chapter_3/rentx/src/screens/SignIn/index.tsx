@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native'
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { 
-  StatusBar, 
+  StatusBar,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,

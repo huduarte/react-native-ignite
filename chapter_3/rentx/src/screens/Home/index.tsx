@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { synchronize } from '@nozbe/watermelondb/sync';
@@ -53,8 +53,7 @@ export function Home() {
 
   useEffect(() => {
     let isMounted = true;
-
-    async function feetchCars() {
+    async function fetchCars() {
       try {
         const carCollection = database.get<ModelCar>('cars');
         const cars = await carCollection.query().fetch();
@@ -71,7 +70,7 @@ export function Home() {
       }
     }
 
-    feetchCars();
+    fetchCars();
     return () => {
       isMounted = false;
     };
