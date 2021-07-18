@@ -34,5 +34,12 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://www.jitpack.io' }
+
+        //Add to detox.
+        maven {
+            // Artefados do Detox para o node_module
+            url "$rootDir/../node_modules/detox/Detox-android"
+        }
+
     }
 }

@@ -19,7 +19,7 @@ interface SkillData {
 export function Home(){
   const [newSkill, setNewSkill] = useState('');
   const [mySkills, setMySkills] = useState<SkillData[]>([]);
-  const [gretting, setGretting] = useState('');
+  const [greeting, setGreeting] = useState('');
 
   function handleAddNewSkill(){
     const data = {
@@ -38,46 +38,56 @@ export function Home(){
   useEffect(() => {
     const currentHour = new Date().getHours();
     if(currentHour < 12){
-      setGretting('Good morning');
+      setGreeting('Good morning');
     } else if(currentHour >= 12 && currentHour < 18){
-      setGretting('Good afternoon');
+      setGreeting('Good afternoon');
     } else {
-      setGretting('Good night');
+      setGreeting('Good night');
     }
   }, [])
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Welcome, Hudson</Text>
+      <Text style={styles.title} testID="welcome">Welcome, Hudson</Text>
 
       <Text style={styles.greetings}>
-        {gretting}!
+        {greeting}!
       </Text>
 
       <TextInput
+        testID="input-new"
         style={styles.input}
         placeholder="New skill"
         placeholderTextColor="#555"
         onChangeText={setNewSkill}
       />
 
-      <Button title="Add" onPress={handleAddNewSkill} />
+      <Button
+        testID="button-add" 
+        title="Add" 
+        onPress={handleAddNewSkill} 
+      />
       
       <Text style={[styles.title, {marginVertical: 50}]} >
         My Skills
       </Text>
 
 
-      <FlatList
-        data={mySkills}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <SkillCard
-            onPress={() => handleRemoveSkill(item.id)} 
-            skill={item.name} 
-          />
-        )}
-      />
+      {
+        mySkills &&
+        <FlatList
+          testID="flat-list-skills"
+          data={mySkills}
+          keyExtractor={item => item.id}
+          keyboardShouldPersistTaps="never"
+          renderItem={({item}) => (
+            <SkillCard
+              onPress={() => handleRemoveSkill(item.id)} 
+              skill={item.name} 
+            />
+          )}
+        />
+      }
 
     </SafeAreaView>
 
